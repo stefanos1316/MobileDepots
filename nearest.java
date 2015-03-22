@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -9,8 +7,8 @@ import java.io.UnsupportedEncodingException;
 
 public class nearest {
 	
-	public static String[] LCT_position;
-	public static String[][] HCT_position; 
+	public String[] LCT_position;
+	public String[][] HCT_position; 
 	
 	public nearest( String[] LCT_position, String[][] HCT_position ){
 		
@@ -47,7 +45,7 @@ public class nearest {
 		
 	}*/
 	
-	public static String[] nearestHCT( String[] LCT_position, String[][] HCT_position ) throws FileNotFoundException, UnsupportedEncodingException
+	public String[] nearestHCT( String[] LCT_position, String[][] HCT_position ) throws FileNotFoundException, UnsupportedEncodingException
 	{
 		String[] getClosest = new String[3];
 		double minDistance = 0;

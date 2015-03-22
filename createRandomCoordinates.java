@@ -51,7 +51,7 @@ public class createRandomCoordinates {
 			double R_X = LowX + ( HighX - LowX )*r.nextDouble();
 			double R_Y = LowY + ( HighY - LowY )*r.nextDouble();
 			
-			if ( !args[6].isEmpty() )
+			if ( args.length == 7 )
 			{
 			System.out.println(String.format("%.12f", R_X)+" "+String.format("%.12f", R_Y)+" 0");
 			writer.println(String.format("%.12f", R_X)+" "+String.format("%.12f", R_Y)+" 0");

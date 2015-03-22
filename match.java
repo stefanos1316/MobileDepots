@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 
 
 public class match {
@@ -10,9 +7,9 @@ public class match {
 	
 	public match(String[] LCT_position, String[] HCT_position, String[] mathcingPoints){
 		
-		this.LCT_position = LCT_position;
-		this.HCT_position = HCT_position;
-		this.mathcingPoints = mathcingPoints;
+		match.LCT_position = LCT_position;
+		match.HCT_position = HCT_position;
+		match.mathcingPoints = mathcingPoints;
 	}
 
 	/*public static void main(String[] args) throws IOException {
@@ -58,11 +55,10 @@ public class match {
 			findMatchingPoint(gpsCoordinatesLCT, gpsCoordinatesHCT, gpsCoordinateMatchingPoints);
 	}*/
 	
-	public static String findMatchingPoint(String[] LCT_position, String[] HCT_position, String[] mathcingPoints){
+	public String findMatchingPoint(String[] LCT_position, String[] HCT_position, String[] mathcingPoints){
 		
 		
 		double minDistance = 0;
-		double minX=0, minY=0;
 		double lowCapacityTruck_to_MatchingPoint = 0, highCapacityTruck_to_MatchingPoint = 0, totalDistanceBetweenTrucks = 0;
 		String minCoordinates = new String();
 		System.out.println("--------------------------------------");
