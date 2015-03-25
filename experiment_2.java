@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -19,23 +20,10 @@ public class experiment_2 {
 		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stefanos\\workspace_new\\MobileDepots\\src\\Experiment_1_Results.txt"));
 		String sCurrentLine;
 		ArrayList<String> list = new ArrayList<String>();
-		int AverageTimeTriggered = 0;
+		double AverageTimeTriggered = 0;
 		
 		while ((sCurrentLine = br.readLine()) != null) 
 			list.add(sCurrentLine);
-		
-		for ( int i=0; i<list.size()-1; ++i)
-		{
-			String[] separator = list.get(i).split(":");
-			String[] separator_next = list.get(i+1).split(":");
-			
-			//if the min are the same then
-			if ( separator[1].equals(separator_next[1])  )
-				AverageTimeTriggered = AverageTimeTriggered + ( Integer.parseInt(separator_next[2]) - Integer.parseInt(separator[2]) );
-			else
-				AverageTimeTriggered = AverageTimeTriggered + ( (Integer.parseInt(separator_next[2]) + 60) - Integer.parseInt(separator[2]) );
-			
-		}
 		
 		PrintWriter writer;
 		
@@ -49,11 +37,22 @@ public class experiment_2 {
 		      e.printStackTrace();
 			}	
 		    	writer = new PrintWriter(new FileOutputStream(new File("src\\Experiment_2_Results.txt"),true));	
-		    	writer.println(AverageTimeTriggered/list.size()+" seconds");				
+		
+		for ( int i=0; i<list.size()-1; ++i)
+		{
+			
+			AverageTimeTriggered = Double.parseDouble(list.get(i+1)) - Double.parseDouble(list.get(i));
+			
+			writer.println(new DecimalFormat("#0.00").format(AverageTimeTriggered));
+			
+		}
+		
+	
+		    					
 		    	writer.close();
 	
 		
-		System.out.println(AverageTimeTriggered/list.size()+" seconds");
+		//System.out.println(AverageTimeTriggered/list.size()+" seconds");
 		
 	}
 }

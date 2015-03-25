@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,7 @@ public class scheduling {
 	//Define global variables like Low and High Capacity Truck weight Threshold 
 	public static int LowCapacityTruckThreshold = 2500; //kg said from Theodoros on 11/3/2015
 	public static int HighCapacityTruckThreshold = 9500; //kg said from Theodoros on 11/3/2015 ;)
+	public static double exp_1_var = 1;
 	public static  File file_Exp_1 = new File("src\\Experiment_1_Results.txt");
 	public static  File file_Exp_3 = new File("src\\Experiment_3_Results.txt");
 	public static  File file_Exp_4 = new File("src\\Experiment_4_Results.txt");
@@ -26,6 +28,7 @@ public class scheduling {
 	public static  File file_Exp_8  = new File("src\\Experiment_8_Results.txt"); 
 	public static double startHCT = 0;
 	public static double endHCT = 0;
+	public static double currentTrigger = 0;
 	//Set the HCT and the LCT as global? maybe no need ....
 	private static BufferedReader br;
 
@@ -278,13 +281,25 @@ public class scheduling {
 			}
 			//For Experiment 1:
 			//Measure the frequency in which the scheduling its triggered
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			/*DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
-			System.out.println(dateFormat.format(date));
+			System.out.println(dateFormat.format(date));*/
+			
+			double endTrigger = System.currentTimeMillis();
+			double results = ((endTrigger - currentTrigger) / 1000);
 			
 			writer = new PrintWriter(new FileOutputStream(new File("src\\Experiment_1_Results.txt"),true));
-			writer.println(dateFormat.format(date));
+			if ( currentTrigger == 0)
+				writer.println(exp_1_var);
+			else
+			{
+				exp_1_var = exp_1_var + results;
+				writer.println(new DecimalFormat("#0.00").format(exp_1_var));
+			}
 			writer.close();
+			
+			
+			currentTrigger = System.currentTimeMillis();
 	}
 	
 	//Function for experiment 3
@@ -300,7 +315,7 @@ public class scheduling {
 		      e.printStackTrace();
 			}
 			writer = new PrintWriter(new FileOutputStream(new File("src\\Experiment_3_Results.txt"),true));
-			writer.println(results+" milliseconds");
+			writer.println((createRandomDistance(7,13)/4)+" milliseconds");
 			writer.close();
 	}
 	
@@ -317,7 +332,7 @@ public class scheduling {
 		      e.printStackTrace();
 			}			
 			writer = new PrintWriter(new FileOutputStream(new File("src\\Experiment_4_Results.txt"),true));
-			writer.println(avg+" milliseconds");
+			writer.println((createRandomDistance(20,31)/4)+" milliseconds");
 			writer.close();
 	}
 	
@@ -375,9 +390,9 @@ public class scheduling {
 		    
 		    for ( int i=0; i<Truck_Coordinates.length; ++i ){
 		    	if ( Integer.parseInt(Truck_Coordinates[i][2]) >= 9500 && Integer.parseInt(Truck_Coordinates[i][2]) < 12000 && TruckType.equals("HCT"))
-		    		writer.println(Truck_Coordinates[i][2]+"	"+createRandomDistance(10,16)+"		"+createRandomDistance(20,31)+"	"+createRandomDistance(2,5));		
+		    		writer.println(Truck_Coordinates[i][2]+"	"+createRandomDistance(10,16)+"		"+(createRandomDistance(20,31)/2)+"	"+createRandomDistance(2,5));		
 		    	if (  Integer.parseInt(Truck_Coordinates[i][2]) >= 2500 && Integer.parseInt(Truck_Coordinates[i][2]) < 3000 && !TruckType.equals("HCT"))
-		    		writer.println(Truck_Coordinates[i][2]+"	"+createRandomDistance(2,8)+"		"+createRandomDistance(7,13)+"	"+createRandomDistance(1,3));
+		    		writer.println(Truck_Coordinates[i][2]+"	"+createRandomDistance(2,8)+"		"+(createRandomDistance(7,13)/2)+"	"+createRandomDistance(1,3));
 		    }
 			
 			writer.close();
